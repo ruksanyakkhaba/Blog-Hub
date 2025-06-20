@@ -1,9 +1,98 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
+import api from '../api/apiProvider';
+import { toast, ToastContainer } from 'react-toastify';
+import Loader from '../components/Loader';
 
 export const Register = () => {
-  return (
-    <div>Register</div>
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState("");
+  const [username,setUsername] = useState("")
+  const [loading,setLoading] = useState(false)
+  async function handleClick() {
+    setLoading(true)
+      try{
+        const res = axios.post(api.register.url,{
+          email,
+          password,
+          username
+        })
+        if(res.status !== 200){
+          toast("Unable to register")
+        }else{
+          console.log(res)
+          toast("Register Successfully")
+        }
+      }catch(err){
+        toast(err.response.data.message)
+      }
+      finally{
+        setLoading(false)
+      }
+  }
+
+   return(
+    <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-white text-black">
+      <ToastContainer />
+      {loading ? (
+        <Loader />
+      ):(
+
+        <section className="flex w-[28rem] flex-col space-y-8 p-8 rounded-xl bg-[#F9F9F9] shadow-lg">
+        <div className="text-center text-3xl font-semibold text-black">Register</div>
+
+        <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-black">
+          <input
+            type="text"
+            placeholder="Email"
+            className="w-full border-none bg-transparent outline-none placeholder:text-gray-500 text-lg focus:outline-none"
+            onChange={(e)=>{
+              setEmail(e.target.value)
+            }}
+            />
+        </div>
+
+        <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-black">
+          <input
+            type="text"
+            placeholder="Username"
+            className="w-full border-none bg-transparent outline-none placeholder:text-gray-500 text-lg focus:outline-none"
+            onChange={(e)=>{
+              setUsername(e.target.value)
+            }}
+            />
+        </div>
+
+        <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-black">
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full border-none bg-transparent outline-none placeholder:text-gray-500 text-lg focus:outline-none"
+            onChange={(e)=>{
+              setPassword(e.target.value)
+            }}
+            />
+        </div>
+
+        <button onClick={handleClick} className="transform rounded-md bg-black py-2 font-medium text-white duration-300 hover:bg-gray-800 hover:text-white border-[1px] border-black">
+          Register
+        </button>
+
+       
+
+        <p className="text-center text-sm text-gray-500">
+          Already have an account?
+          <a href="#" className="mx-3 font-medium text-black underline-offset-4 hover:underline">
+            Login Here
+          </a>
+        </p>
+      </section>
+          )} 
+    </main>
   )
 }
 
+
 export default Register
+
+
