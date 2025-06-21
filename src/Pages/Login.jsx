@@ -2,30 +2,41 @@ import React, { useState } from 'react'
 import api from '../api/apiProvider';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 export const Login = () => {
   const navigate = useNavigate();
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("")
-
+  const [loading,setLoading] = useState(false)
   async function handleClick(){
     try{
+      setLoading(true)
 
-    
-    const res = await axios.post(api.login.url,{
-      email,
-      password
-    })
-    if(!res.status === 200 || res.status == 400){
+   
+
+      const res = await axios.post(api.login.url,{
+        email,
+        password
+      })
+      if(!res.status === 200 || res.status == 400){
+        setLoading(false)
         toast("Unable to login")
-    }else{
-      navigate("/")
-    }
+      }else{
+        navigate("/")
+      }
+   
+
   }
     catch(err){
-      console.log(err)
+   
+      setLoading(false)
+      
       toast(err.response.data.message)
+    }
+    finally{
+      setLoading(false)
     }
 
   }
@@ -34,8 +45,10 @@ export const Login = () => {
       <section className="flex w-[28rem] flex-col space-y-8 p-8 rounded-xl bg-[#F9F9F9] shadow-lg">
         <div className="text-center text-3xl font-semibold text-black">Login</div>
           <ToastContainer />
-        
-
+        {loading && (
+          <Loader />
+        )}
+        {console.log(loading)}
         <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-black">
           <input
             type="text"
@@ -69,9 +82,9 @@ export const Login = () => {
 
         <p className="text-center text-sm text-gray-500">
           No account?
-          <a href="#" className="mx-2 font-medium text-black underline-offset-4 hover:underline">
+          <Link to="/register" className="mx-2 font-medium text-black underline-offset-4 hover:underline">
             Create One
-          </a>
+          </Link>
         </p>
       </section>
     </main>
