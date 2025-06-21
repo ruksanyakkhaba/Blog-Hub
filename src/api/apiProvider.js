@@ -1,0 +1,44 @@
+const backendUrl = "http://localhost:3000/api/v1";
+
+const api ={
+    register:{
+        url:`${backendUrl}/user/register`,
+        method:"POST"
+    },
+    login:{
+        url:`${backendUrl}/user/login`,
+        method:"POST"
+    },
+    logout:{
+        url:`${backendUrl}/user/logout`,
+        method:"GET"
+    },
+    getInfo:{
+        url:`${backendUrl}/user/getInfo`,
+        method:"GET"
+    },
+    changePassword:{
+        url:`${backendUrl}/user/changePassword`,
+        method:"PATCH"
+    },
+    forgetPassword:{
+        url:`${backendUrl}/user/forget-password`,
+        method:"POST"
+    },
+    createPOst:{
+        url:`${backendUrl}/post`,
+        method:"POST"
+    },
+    editPost:{
+        url:`${backendUrl}/post`,
+        method:"POST"
+    },
+    getAllPost:{
+        url:`${backendUrl}/post`,
+        method:"GET"
+    },
+    addComment:{
+        url:`${backendUrl}/post/add-comments`
+    }
+}
+export default api
