@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import api from '../api/apiProvider';
 import { toast, ToastContainer } from 'react-toastify';
 import Loader from '../components/Loader';
+import { Link } from 'react-router-dom';
 
 export const Register = () => {
   const [email,setEmail] = useState('')
@@ -12,13 +13,14 @@ export const Register = () => {
   async function handleClick() {
     setLoading(true)
       try{
-        const res = axios.post(api.register.url,{
+        const res = await axios.post(api.register.url,{
           email,
           password,
           username
         })
         if(res.status !== 200){
-          toast("Unable to register")
+          console.log(res)
+          toast(res.response.data.message)
         }else{
           console.log(res)
           toast("Register Successfully")
@@ -82,9 +84,10 @@ export const Register = () => {
 
         <p className="text-center text-sm text-gray-500">
           Already have an account?
-          <a href="#" className="mx-3 font-medium text-black underline-offset-4 hover:underline">
-            Login Here
-          </a>
+          
+          <Link to="/login" className="mx-3 font-medium text-black underline-offset-4 hover:underline">
+          Login here
+          </Link>
         </p>
       </section>
           )} 
