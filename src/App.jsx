@@ -8,10 +8,12 @@ import Postdetails from './Pages/PostDetails'
 import EditPost from './Pages/EditPost'
 import MyBlogs from './Pages/MyBlogs'
 import Profile from './Pages/Profile'
+import UserContextProvider from './context/UserContext'
 
 const App = () => {
   return (
    <>
+   <UserContextProvider>
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/login' element={<Login/>} />
@@ -22,6 +24,7 @@ const App = () => {
       <Route path='/myblogs/:id' element={<MyBlogs/>} />
       <Route path='/profile/:id' element={<Profile/>} />
     </Routes>
+   </UserContextProvider>
    </>
   )
 }
