@@ -12,6 +12,7 @@ export  const Menu = () => {
     const handleLogout =  async() => {  //res=response
         try{
             const res = await axios.get("/api/auth/logout",{withCredentials:true}); 
+            console.log(res)
             setUser(null)
             navigate("/login")
         }
