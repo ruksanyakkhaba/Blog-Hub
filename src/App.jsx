@@ -10,11 +10,13 @@ import MyBlogs from './Pages/MyBlogs'
 import Profile from './Pages/Profile'
 import { Navbar } from './components/Navbar'
 
+
 const App = () => {
   
   return (
    <>
    <Navbar />
+ 
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/login' element={<Login/>} />
@@ -23,7 +25,7 @@ const App = () => {
       <Route path='/post/post/:id' element={<Postdetails/>} />
       <Route path='/edit/:id' element={<EditPost/>} />
       <Route path='/myblogs/:id' element={<MyBlogs/>} />
-      <Route path='/profile/:id' element={<Profile/>} />
+      <Route path='/profile' element={<Profile/>} />
     
     </Routes>
    </>

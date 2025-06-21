@@ -1,54 +1,41 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FaUserCircle } from 'react-icons/fa'; 
-import { IoMdMoon, IoMdSunny } from 'react-icons/io'; 
+import { IoMdMoon, IoMdSunny,IoMdSearch } from 'react-icons/io'; 
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../context/themeProvider';
 
 export const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-   const [darkMode,setDarkMode] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false); 
   
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
+  var {darkMode,toggleDarkMode} = useContext(ThemeContext);
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-  
-  useEffect(() => {
-    const storedDarkMode = localStorage.getItem('darkMode');
-    if (storedDarkMode) {
-      setDarkMode(storedDarkMode === 'true');
-    }
-  }, []);
+ 
 
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark');
-      localStorage.setItem('darkMode', 'true');
-    } else {
-      document.body.classList.remove('dark');
-      localStorage.setItem('darkMode', 'false');
-    }
-  }, [darkMode]);
-
-  // var {darkMode}  = useContext(ThemeContext);
-
+   
   return (
     <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-4 flex items-center justify-between">
     
       <div className="flex items-center space-x-2">
         <span className="font-semibold text-xl">BlogLogo</span>
       </div>
-
+    {console.log(toggleDarkMode)}
       <div className="flex space-x-6">
         <Link to="/" className="hover:text-gray-700 dark:hover:text-gray-300">Home</Link>
         <Link to="/posts" className="hover:text-gray-700 dark:hover:text-gray-300">Posts</Link>
         <Link to="/about" className="hover:text-gray-700 dark:hover:text-gray-300">About</Link>
         <Link to="/contact" className="hover:text-gray-700 dark:hover:text-gray-300">Contact</Link>
       </div>
+      <div className="h-[40px] w-[150px] px-2 rounded-xl flex items-center border-1 transition-all duration-300">
+  <input
+    type="text"
+    placeholder="Search ....."
+    className="w-full h-full text-xl border-none outline-none focus:outline-none"
+  />
+  <IoMdSearch className="text-3xl" />
+</div>
 
       <div className="flex items-center space-x-4">
         <button onClick={toggleDarkMode} className="text-xl">
