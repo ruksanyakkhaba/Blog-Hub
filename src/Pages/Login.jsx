@@ -24,7 +24,7 @@ export const Login = () => {
         setLoading(false)
         toast("Unable to login")
       }else{
-        navigate("/")
+        window.location.href ="/"
       }
    
 
@@ -33,7 +33,7 @@ export const Login = () => {
    
       setLoading(false)
       
-      toast(err.response.data.message)
+      toast(err.response?.data?.message)
     }
     finally{
       setLoading(false)
@@ -41,9 +41,9 @@ export const Login = () => {
 
   }
  return (
-    <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-white text-black">
-      <section className="flex w-[28rem] flex-col space-y-8 p-8 rounded-xl bg-[#F9F9F9] shadow-lg">
-        <div className="text-center text-3xl font-semibold text-black">Login</div>
+    <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-white text-black dark:bg-black dark:text-white">
+      <section className="flex w-[28rem] flex-col space-y-8 p-8 rounded-xl bg-[#F9F9F9] shadow-xs shadow-black dark:shadow-white dark:bg-black dark:text-white">
+        <div className="text-center text-3xl font-semibold text-black dark:text-white">Login</div>
           <ToastContainer />
         {loading && (
           <Loader />
@@ -61,7 +61,7 @@ export const Login = () => {
           />
         </div>
 
-        <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-black">
+        <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-blackd">
           <input
             type="password"
             placeholder="Password"
@@ -72,17 +72,17 @@ export const Login = () => {
           />
         </div>
 
-        <button className="transform rounded-md bg-black py-2 font-medium text-white duration-300 hover:bg-gray-800 hover:text-white border-[1px] border-black" onClick={handleClick}>
+        <button className="transform rounded-md bg-black  dark:bg-white dark:text-black py-2 font-medium text-white duration-300 hover:bg-gray-800 hover:text-white border-[1px] border-black" onClick={handleClick}>
           Login
         </button>
 
-        <a href="#" className="transform text-center font-medium text-gray-600 duration-300 hover:text-black">
+        <a href="#" className="transform text-center font-medium text-gray-600 dark:text-white duration-300 hover:text-black dark:hover:text-gray-600">
           FORGOT PASSWORD?
         </a>
 
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-gray-500 dark:text-white">
           No account?
-          <Link to="/register" className="mx-2 font-medium text-black underline-offset-4 hover:underline">
+          <Link to="/register" className="mx-2 font-medium text-black dark:text-white underline-offset-4 hover:underline dark:hover:text-gray-600">
             Create One
           </Link>
         </p>
