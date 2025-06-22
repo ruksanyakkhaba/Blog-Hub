@@ -41,8 +41,8 @@ export const Login = () => {
 
   }
  return (
-    <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-white text-black">
-      <section className="flex w-[28rem] flex-col space-y-8 p-8 rounded-xl bg-[#F9F9F9] shadow-lg">
+    <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-white text-black dark:bg-black dark:text-white">
+      <section className="flex w-[28rem] flex-col space-y-8 p-8 rounded-xl bg-[#F9F9F9] shadow-lg ">
         <div className="text-center text-3xl font-semibold text-black">Login</div>
           <ToastContainer />
         {loading && (

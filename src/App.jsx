@@ -9,6 +9,7 @@ import EditPost from './Pages/EditPost'
 import MyBlogs from './Pages/MyBlogs'
 import Profile from './Pages/Profile'
 import { Navbar } from './components/Navbar'
+import Footer from './components/Footer'
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
       <Route path='/profile' element={<Profile/>} />
     
     </Routes>
+    <Footer/>
    </>
   )
 }
