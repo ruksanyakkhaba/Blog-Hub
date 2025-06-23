@@ -20,7 +20,9 @@ export const Navbar = () => {
     <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-4 flex items-center justify-between">
     
       <div className="flex items-center space-x-2">
-        <span className="font-semibold text-xl">BlogHub</span>
+        <span className="font-semibold text-xl">
+          <Link onClick={'/'}>BlogHub</Link>
+          </span>BlogHub
       </div>
     {console.log(toggleDarkMode)}
       <div className="flex space-x-6">

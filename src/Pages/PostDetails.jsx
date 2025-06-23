@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { FaUser, FaCalendarAlt, FaComment, FaEdit, FaTrash } from 'react-icons/fa';
-import Comment from './Comment';
-
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { FaUser, FaCalendarAlt, FaComment, FaEdit, FaTrash } from 'react-icons/fa'
+import Comment from '../components/Comment';
 const PostDetails = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
