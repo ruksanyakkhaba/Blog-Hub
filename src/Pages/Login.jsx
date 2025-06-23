@@ -19,18 +19,20 @@ export const Login = () => {
       const res = await axios.post(api.login.url,{
         email,
         password
-      })
+      },{withCredentials:true})
       if(!res.status === 200 || res.status == 400){
         setLoading(false)
         toast("Unable to login")
       }else{
+        toast(res.data.message)
+        
         window.location.href ="/"
       }
    
 
   }
     catch(err){
-   
+     // ✅ must be false on HTTP
       setLoading(false)
       
       toast(err.response?.data?.message)

@@ -39,6 +39,14 @@ const api ={
     },
     addComment:{
         url:`${backendUrl}/post/add-comments`
+    },
+    deletePost:{
+        url:`${backendUrl}/post`,
+        method:"DELETE"
+    },
+    getUserPosts:{
+        url:`${backendUrl}/post/user-posts`,
+        method:"GET"
     }
 }
 export default api

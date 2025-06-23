@@ -3,12 +3,34 @@ import { FaUserCircle } from 'react-icons/fa';
 import { IoMdMoon, IoMdSunny,IoMdSearch } from 'react-icons/io'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../context/themeProvider';
+import { useAuth } from '../context/authProvider';
+import api from '../api/apiProvider';
+import axios from 'axios';
 
 export const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false); 
+
   const navigate = useNavigate();
   var {darkMode,toggleDarkMode} = useContext(ThemeContext);
+  
+  const {auth} = useAuth();
+  useEffect(()=>{
+    if(auth.status){
+      setIsLoggedIn(true)
+    }
+  },[auth.status]) 
+  
+   const handleLogOut = async() =>{
+     const res =  await axios.get(api.logout.url,{
+      withCredentials:true
+     })
+
+     if(res.status ==200 ){
+      window.location.href = "/"
+     }
+   }
+  
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -16,7 +38,7 @@ export const Navbar = () => {
 
    
   return (
-    <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-4 flex items-center justify-between">
+    <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white  px-15 py-4 flex items-center justify-between">
     
       <div className="flex items-center space-x-2">
         <Link to ="/">
@@ -63,7 +85,7 @@ export const Navbar = () => {
 
                 <Link to="/profile" className="block px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">View Profile</Link>
                 <button
-                  onClick={() => setIsLoggedIn(false)}
+                  onClick={() =>handleLogOut()}
                   className="block w-full text-left px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
                 >
                   Logout
