@@ -22,7 +22,7 @@ export const Navbar = () => {
       <div className="flex items-center space-x-2">
         <span className="font-semibold text-xl">
           <Link onClick={'/'}>BlogHub</Link>
-          </span>BlogHub
+          </span>
       </div>
     {console.log(toggleDarkMode)}
       <div className="flex space-x-6">
