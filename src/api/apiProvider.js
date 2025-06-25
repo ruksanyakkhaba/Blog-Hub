@@ -25,20 +25,29 @@ const api ={
         url:`${backendUrl}/user/forget-password`,
         method:"POST"
     },
-    createPOst:{
+    createPost:{
         url:`${backendUrl}/post`,
         method:"POST"
     },
+    changeRole:{
+        url:`${backendUrl}/user/change-role`,
+        method:"PUT"
+    },
     editPost:{
-        url:`${backendUrl}/post`,
+        url:`${backendUrl}/post/edit-post/`,
         method:"POST"
     },
     getAllPost:{
         url:`${backendUrl}/post`,
         method:"GET"
     },
+    getOnepost:{
+        url:`${backendUrl}/post/`,
+        method:"GET"
+    },
     addComment:{
-        url:`${backendUrl}/post/add-comments`
+        url:`${backendUrl}/post/add-comments/`,
+        method:"POST"
     },
     deletePost:{
         url:`${backendUrl}/post`,

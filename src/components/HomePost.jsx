@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 const HomePost = ({image,title,description,id}) => {
   return (
-    <Link to={`/myblogs/${id}`} className="no-underline">
-    {/* Using Link to navigate to the post details page */}
+    <Link to={`/blog/${id}`} className="no-underline" id={id}>
+    
 
-  <div className=" w-[250px] rounded-lg shadow-lg bg-white dark:bg-gray-800 transition-all">
+  <div className=" w-[250px] rounded-lg shadow-xs shadow-black  bg-white dark:bg-gray-800 transition-all ">
       <img
         src={image}
         alt={title}

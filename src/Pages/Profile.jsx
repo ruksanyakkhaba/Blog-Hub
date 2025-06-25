@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { PiTrash } from "react-icons/pi";
+import { PiPen, PiTrash } from "react-icons/pi";
 import api from "../api/apiProvider";
 import { useAuth } from "../context/authProvider";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
   const { auth } = useAuth();
   const [userDetails, setUserDetails] = useState(null);
   const [posts, setPosts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserData = async () => {
       console.log("auth", auth);
@@ -45,13 +46,15 @@ export const Profile = () => {
   }, [auth]);
 
   const handleDelete = async (postId) => {
-    try { 
+    try {
       const response = await axios.delete(api.deletePost.url + "/" + postId, {
         withCredentials: true,
       });
       if (response.status === 200) {
         toast.success("Post deleted successfully");
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+        setPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== postId)
+        );
       } else {
         toast.error("Failed to delete post");
       }
@@ -60,8 +63,26 @@ export const Profile = () => {
       toast.error("Error deleting post");
     }
   };
-  
 
+  const ChangeRole = async (newRole) => {
+    try {
+      const response = await axios.put(
+        api.changeRole.url + "/" + userDetails._id,
+        { role: newRole },
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        toast.success("Role changed successfully");
+        setUserDetails((prev) => ({ ...prev, role: newRole }));
+      } else {
+        toast.error("Failed to change role");
+      }
+    } catch (error) {
+      console.error("Error changing role:", error);
+      toast.error("Error changing role");
+    }
+  };
   console.log("userDetails", userDetails);
 
   return (
@@ -80,6 +101,29 @@ export const Profile = () => {
           <p className="h-full w-full rounded-xl px-2 bg-transparent">
             {userDetails?.email}
           </p>
+        </div>
+        <div className="h-[40px] mt-4 flex items-center gap-3 px-2 py-1 rounded-xl bg-white dark:bg-[#19191a]">
+          <span className="capitalize w-[80px]">Role</span>
+          <select
+            defaultValue={userDetails?.role}
+            name="role"
+            id="role"
+            className="h-full w-full rounded-xl px-2 bg-transparent"
+            onChange={(e) => ChangeRole(e.target.value)}
+          >
+            <option
+              value="Reader"
+              className="bg-white text-black dark:bg-black dark:text-white"
+            >
+              Reader
+            </option>
+            <option
+              value="Author"
+              className="bg-white text-black dark:bg-black dark:text-white"
+            >
+              Author
+            </option>
+          </select>
         </div>
       </div>
 
@@ -103,10 +147,16 @@ export const Profile = () => {
             </p>
 
             <button
-              className="absolute top-5 right-3 p-2 rounded-full bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-red-700 hover:cursor-pointer"
+              className="absolute top-1 right-3 p-2 rounded-full bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-red-700 hover:cursor-pointer"
               onClick={() => handleDelete(post._id)}
             >
               <PiTrash className="text-lg" />
+            </button>
+            <button
+              className="absolute top-13 right-3 p-2 rounded-full bg-green-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-green-400 hover:cursor-pointer"
+              onClick={()=>navigate(`/edit-post/${post._id}`)}
+            >
+              <PiPen />
             </button>
           </li>
         ))}

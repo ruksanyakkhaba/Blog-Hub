@@ -38,7 +38,7 @@ export const Navbar = () => {
 
    
   return (
-    <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white  px-15 py-4 flex items-center justify-between">
+    <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-15 py-4 flex items-center justify-between  border-b-2 border-gray-200 dark:border-gray-700">
     
       <div className="flex items-center space-x-2">
         <Link to ="/">
@@ -75,7 +75,7 @@ export const Navbar = () => {
           </>
         ) : (
           <div className="relative">
-            {/* Profile Icon */}
+           
             <button onClick={toggleDropdown}>
               <FaUserCircle className="text-2xl" />
             </button>
