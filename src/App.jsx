@@ -9,11 +9,22 @@ import EditPost from './Pages/EditPost'
 import MyBlogs from './Pages/MyBlogs'
 import Profile from './Pages/Profile'
 import { Navbar } from './components/Navbar'
-import Footer from './components/Footer'
 
 
 const App = () => {
-  
+  const [role, setRole] = useState(null);
+  const { auth } = useAuth();
+
+  useEffect(() => {
+    if (auth.status) {
+      setRole(auth.userData.role);
+    }
+  }, [auth.status, auth.userData]);
+
+  if (role === null) {
+    return <Loader />;
+  }
+
   return (
    <>
    <Navbar />
@@ -29,9 +40,8 @@ const App = () => {
       <Route path='/profile' element={<Profile/>} />
     
     </Routes>
-    <Footer/>
    </>
   )
 }
 
-export default App
+export default App;
