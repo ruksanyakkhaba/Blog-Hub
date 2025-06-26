@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaUser, FaUsers, FaEdit, FaTrashAlt } from "react-icons/fa"; // Importing icons from react-icons
+import { FaUser , FaUsers, FaEdit, FaTrashAlt } from "react-icons/fa"; // Importing icons from react-icons
 
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([
@@ -9,9 +9,15 @@ const AdminDashboard = () => {
   ]);
 
   const [users, setUsers] = useState([
-    { id: 1, name: "User 1" },
-    { id: 2, name: "User 2" },
-    { id: 3, name: "User 3" },
+    { id: 1, name: "User  1" },
+    { id: 2, name: "User  2" },
+    { id: 3, name: "User  3" },
+  ]);
+
+  const [comments, setComments] = useState([
+    { id: 1, postId: 1, text: "Great post!" },
+    { id: 2, postId: 1, text: "Thanks for sharing!" },
+    { id: 3, postId: 2, text: "Interesting read." },
   ]);
 
   const editPost = (id) => {
@@ -21,6 +27,17 @@ const AdminDashboard = () => {
 
   const deletePost = (id) => {
     setPosts(posts.filter(post => post.id !== id));
+    setComments(comments.filter(comment => comment.postId !== id)); // Delete comments associated with the post
+  };
+
+  const deleteUser  = (id) => {
+    setUsers(users.filter(user => user.id !== id));
+    setPosts(posts.filter(post => post.userId !== id)); // Assuming posts have a userId field
+    setComments(comments.filter(comment => comment.userId !== id)); // Assuming comments have a userId field
+  };
+
+  const deleteComment = (id) => {
+    setComments(comments.filter(comment => comment.id !== id));
   };
 
   return (
@@ -38,9 +55,14 @@ const AdminDashboard = () => {
           </div>
           <ul className="space-y-2">
             {users.map((user) => (
-              <li key={user.id} className="flex items-center">
-                <FaUser className="text-gray-600 mr-2" />
-                {user.name}
+              <li key={user.id} className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <FaUser  className="text-gray-600 mr-2" />
+                  {user.name}
+                </div>
+                <button onClick={() => deleteUser (user.id)} className="text-red-500 hover:text-red-700">
+                  <FaTrashAlt />
+                </button>
               </li>
             ))}
           </ul>
@@ -65,6 +87,29 @@ const AdminDashboard = () => {
                     <FaEdit />
                   </button>
                   <button onClick={() => deletePost(post.id)} className="text-red-500 hover:text-red-700">
+                    <FaTrashAlt />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Comments Card */}
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4">Comments</h2>
+          <div className="flex items-center mb-4">
+            <FaUsers className="text-yellow-500 mr-2" />
+            <span className="text-lg">Total Comments: {comments.length}</span>
+          </div>
+          <ul className="space-y-4">
+            {comments.map((comment) => (
+              <li key={comment.id} className="p-4 border-b border-gray-200 flex justify-between items-center">
+                <div>
+                  <p className="text-gray-600">{comment.text}</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <button onClick={() => deleteComment(comment.id)} className="text-red-500 hover:text-red-700">
                     <FaTrashAlt />
                   </button>
                 </div>
