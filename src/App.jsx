@@ -9,6 +9,9 @@ import EditPost from './Pages/EditPost'
 import MyBlogs from './Pages/MyBlogs'
 import Profile from './Pages/Profile'
 import { Navbar } from './components/Navbar'
+import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import Loader from "./components/Loader";
+import ChangePassword from "./Pages/ChangePassword";
 
 
 const App = () => {
@@ -21,27 +24,41 @@ const App = () => {
     }
   }, [auth.status, auth.userData]);
 
-  if (role === null) {
+  if (auth.userData && role === null) {
     return <Loader />;
   }
 
   return (
-   <>
-   <Navbar />
- 
-    <Routes>
-      <Route path='/' element={<Home/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/register' element={<Register/>} />
-      <Route path='/write' element={<CreatePost/>} />
-      <Route path='/post/post/:id' element={<Postdetails/>} />
-      <Route path='/edit/:id' element={<EditPost/>} />
-      <Route path='/myblogs/:id' element={<MyBlogs/>} />
-      <Route path='/profile' element={<Profile/>} />
-    
-    </Routes>
-   </>
-  )
+
+    <>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/blog/:id" element={<ReadBlog />} />
+        <Route path="/change-password/:id" element={<ChangePassword />} />
+        {console.log("role auth", role)}
+        {role == "Author" && (
+          <>
+            <Route path="/edit-post/:id" element={<EditPost />} />
+            <Route path="/write" element={<CreatePost />} />
+          </>
+        )}
+
+        <Route
+          path="/admin"
+          element={role == "Author" ? <AdminDashboard /> : <Navigate to="/" />}
+        />
+      </Routes>
+    </>
+  );
+
+
+  
 }
+
 
 export default App;

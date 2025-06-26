@@ -63,7 +63,7 @@ export const Login = () => {
           />
         </div>
 
-        <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-blackd">
+        <div className="w-full transform border-b-[1px] border-gray-300 bg-transparent text-lg duration-300 focus-within:border-black">
           <input
             type="password"
             placeholder="Password"

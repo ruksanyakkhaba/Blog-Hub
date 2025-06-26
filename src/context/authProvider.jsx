@@ -21,10 +21,12 @@ export const AuthProvider = ({ children }) => {
           setAuth({ status: true, userData: response.data.user });
         } else {
           setAuth({ status: false, userData: undefined });
+          
         }
       } catch (err) {
         setAuth({status:false,userData:undefined})
         console.log(err)
+        setLoading(false)
       }finally{
         setLoading(false)
       }
