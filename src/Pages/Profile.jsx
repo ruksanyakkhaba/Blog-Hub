@@ -4,20 +4,21 @@ import { PiPen, PiTrash } from "react-icons/pi";
 import api from "../api/apiProvider";
 import { useAuth } from "../context/authProvider";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 export const Profile = () => {
   const { auth } = useAuth();
   const [userDetails, setUserDetails] = useState(null);
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchUserData = async () => {
       console.log("auth", auth);
       if (auth && auth.userData) {
         const { _id } = auth.userData;
         setUserDetails(auth.userData);
-
         fetchPosts(_id);
       } else {
         console.log("User not authenticated or userData not available.");
@@ -35,9 +36,13 @@ export const Profile = () => {
           );
           if (response.status === 200) {
             setPosts(response.data.posts);
+            setLoading(false);
           }
         } catch (error) {
           console.error("Error fetching posts:", error);
+        }
+        finally {
+          setLoading(false);
         }
       }
     };
@@ -84,7 +89,9 @@ export const Profile = () => {
     }
   };
   console.log("userDetails", userDetails);
-
+  if(loading){
+    return <Loader />
+  }
   return (
     <div className="min-h-screen w-full bg-white dark:bg-black dark:text-white flex flex-col items-center py-10">
       <div className="w-[400px] rounded-xl shadow-md dark:shadow-white p-6 bg-white dark:bg-[#1c1c1c]">
@@ -105,7 +112,7 @@ export const Profile = () => {
         <div className="h-[40px] mt-4 flex items-center gap-3 px-2 py-1 rounded-xl bg-white dark:bg-[#19191a]">
           <span className="capitalize w-[80px]">Role</span>
           <select
-            defaultValue={userDetails?.role}
+            value={userDetails?.role}
             name="role"
             id="role"
             className="h-full w-full rounded-xl px-2 bg-transparent"
@@ -124,6 +131,9 @@ export const Profile = () => {
               Author
             </option>
           </select>
+        </div>
+        <div className="h-[40px] mt-4 flex items-center gap-3 px-2 py-1 rounded-xl bg-white dark:bg-[#19191a] justify-center">
+          <Link to={`/change-password/${userDetails?._id}`} className=" h-[30px] w-[200px] text-center bg-white text-black"> Change Password </Link>
         </div>
       </div>
 

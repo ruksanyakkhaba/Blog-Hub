@@ -18,7 +18,7 @@ const api ={
         method:"GET"
     },
     changePassword:{
-        url:`${backendUrl}/user/changePassword`,
+        url:`${backendUrl}/user/changePassword/`,
         method:"PATCH"
     },
     forgetPassword:{

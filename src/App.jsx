@@ -13,6 +13,7 @@ import ReadBlog from "./Pages/ReadBlog";
 
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import Loader from "./components/Loader";
+import ChangePassword from "./Pages/ChangePassword";
 
 const App = () => {
   const [role, setRole] = useState(null);
@@ -24,7 +25,7 @@ const App = () => {
     }
   }, [auth.status, auth.userData]);
 
-  if (role === null) {
+  if (auth.userData && role === null) {
     return <Loader />;
   }
 
@@ -36,10 +37,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/post/post/:id" element={<Postdetails />} />
-        <Route path="/myblogs/:id" element={<Postdetails />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/blog/:id" element={<ReadBlog />} />
+        <Route path="/change-password/:id" element={<ChangePassword />} />
         {console.log("role auth", role)}
         {role == "Author" && (
           <>
