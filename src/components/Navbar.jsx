@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { FaUserCircle } from 'react-icons/fa'; 
 import { IoMdMoon, IoMdSunny,IoMdSearch } from 'react-icons/io'; 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ThemeContext } from '../context/themeProvider';
 import { useAuth } from '../context/authProvider';
 import api from '../api/apiProvider';
 import axios from 'axios';
 
 export const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false); 
-
-  const navigate = useNavigate();
+  
   var {darkMode,toggleDarkMode} = useContext(ThemeContext);
   
   const {auth} = useAuth();
@@ -41,16 +40,14 @@ export const Navbar = () => {
     <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-15 py-4 flex items-center justify-between  border-b-2 border-gray-200 dark:border-gray-700">
     
       <div className="flex items-center space-x-2">
-        <Link to ="/">
-        
-         <span className="font-semibold text-xl">Blog Hub</span>
-        </Link>
+        <span className="font-semibold text-xl">BlogLogo</span>
       </div>
     {console.log(toggleDarkMode)}
       <div className="flex space-x-6">
         <Link to="/" className="hover:text-gray-700 dark:hover:text-gray-300">Home</Link>
         <Link to="/posts" className="hover:text-gray-700 dark:hover:text-gray-300">Posts</Link>
-      
+        <Link to="/about" className="hover:text-gray-700 dark:hover:text-gray-300">About</Link>
+        <Link to="/contact" className="hover:text-gray-700 dark:hover:text-gray-300">Contact</Link>
       </div>
       <div className="h-[40px] w-[150px] px-2 rounded-xl flex items-center border-1 transition-all duration-300">
   <input
@@ -68,8 +65,8 @@ export const Navbar = () => {
 
         {!isLoggedIn ? (
           <>
-            <button className="bg-black dark:bg-white text-white text-sm dark:text-black px-2 py-1 rounded hover:cursor-pointer hover:bg-[#1c0101] dark:hover:bg-[#b5b5b3]" onClick={()=>navigate("/register")}>Sign Up</button>
-         <button className="bg-black dark:bg-white text-white text-sm dark:text-black px-2 py-1 rounded hover:cursor-pointer   hover:bg-[#1c0101] dark:hover:bg-[#b5b5b3]" onClick={()=>navigate('/login')}>Login</button>
+            <button className="bg-black dark:bg-white text-white text-sm dark:text-black px-2 py-1 rounded hover:cursor-pointer hover:bg-[#1c0101] dark:hover:bg-[#b5b5b3]">Sign Up</button>
+         <button className="bg-black dark:bg-white text-white text-sm dark:text-black px-2 py-1 rounded hover:cursor-pointer   hover:bg-[#1c0101] dark:hover:bg-[#b5b5b3]">Login</button>
    
 
           </>

@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import Home from "./Pages/Home";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
-import CreatePost from "./Pages/CreatePost";
-import Postdetails from "./Pages/PostDetails";
-import EditPost from "./Pages/EditPost";
-import Profile from "./Pages/Profile";
-import { Navbar } from "./components/Navbar";
-import { useAuth } from "./context/authProvider";
-import ReadBlog from "./Pages/ReadBlog";
-
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Home from './Pages/Home'
+import Login from './Pages/Login'
+import Register from './Pages/Register'
+import CreatePost from './Pages/CreatePost'
+import Postdetails from './Pages/PostDetails'
+import EditPost from './Pages/EditPost'
+import MyBlogs from './Pages/MyBlogs'
+import Profile from './Pages/Profile'
+import { Navbar } from './components/Navbar'
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import Loader from "./components/Loader";
 import ChangePassword from "./Pages/ChangePassword";
+
 
 const App = () => {
   const [role, setRole] = useState(null);
@@ -30,6 +29,7 @@ const App = () => {
   }
 
   return (
+
     <>
       <Navbar />
 
@@ -55,6 +55,10 @@ const App = () => {
       </Routes>
     </>
   );
-};
+
+
+  
+}
+
 
 export default App;
