@@ -41,7 +41,8 @@ const CreatePost = () => {
         window.location.reload();
       }
     } catch (err) {
-      console.log("error");
+      
+      toast(err.response.data.message)
     }
   }
 

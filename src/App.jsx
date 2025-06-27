@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import CreatePost from "./Pages/CreatePost";
-import Postdetails from "./Pages/PostDetails";
+
 import EditPost from "./Pages/EditPost";
 import Profile from "./Pages/Profile";
 import { Navbar } from "./components/Navbar";
 import { useAuth } from "./context/authProvider";
 import ReadBlog from "./Pages/ReadBlog";
-
+import { SearchProvider } from "./context/searchContext";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import Loader from "./components/Loader";
 import ChangePassword from "./Pages/ChangePassword";
+import NotFound from "./components/NotFound";
+import AllUser from "./Pages/Admin/AllUser";
+import AllPost from "./Pages/Admin/AllPost";
+
 
 const App = () => {
   const [role, setRole] = useState(null);
@@ -31,10 +35,14 @@ const App = () => {
 
   return (
     <>
+    <SearchProvider>
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={role == "Admin" ? <AdminDashboard /> : <Home />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
@@ -50,9 +58,17 @@ const App = () => {
 
         <Route
           path="/admin"
-          element={role == "Author" ? <AdminDashboard /> : <Navigate to="/" />}
+          element={role == "Admin" ? <AdminDashboard /> : <Navigate to="/" />}
         />
+        {role == "Admin" &&(
+          <>
+          <Route path="/alluser" element={<AllUser />} />
+          <Route path="/allposts" element ={<AllPost />} />
+          </>
+        )}
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      </SearchProvider>
     </>
   );
 };

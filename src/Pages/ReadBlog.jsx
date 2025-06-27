@@ -53,8 +53,13 @@ const ReadBlog = () => {
     if (res.status != 201) {
         toast.error("Failed to add comment");
       return;
+    }{
+      toast.success("Comment added successfully");
+      setTimeout(()=>{
+        window.location.reload()
+      },2000)
     }
-    toast.success("Comment added successfully");
+  
     if (!blogPost) return; 
 
     if (!blogPost.comments) {
@@ -83,7 +88,7 @@ const ReadBlog = () => {
             <img
               src={blogPost.image}
               alt={blogPost.title}
-              className="w-full h-auto rounded-lg"
+              className="w-full h-auto max-h-[300px] rounded-lg"
             />
           </div>
           <div className=" mb-6 text-justify">{blogPost.description}</div>
@@ -163,7 +168,7 @@ const ReadBlog = () => {
                   <AllComments
                     key={index}
                     comments={comment.content}
-                    user={comment.username}
+                    user={comment.author.username}
                     date={comment.createdAt}
                   />
                 ))}
@@ -181,10 +186,17 @@ function AllComments({comments,user,date}) {
   return (
     <div className="flex items-center space-x-2">
       <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+        <div>
+
         <FaUser />
+        
+        </div>
+        
       </div>
-      <div className="flex-1 dark:text-white">
+      <div className="flex-1 dark:text-white ">
+        <p>{user}</p>
         <p >{comments}</p>
+        
         <span className="text-sm ">{new Date(date).toLocaleString()}</span>
       </div>
     </div>

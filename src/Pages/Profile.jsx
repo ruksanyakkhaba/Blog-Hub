@@ -79,7 +79,8 @@ export const Profile = () => {
 
       if (response.status === 200) {
         toast.success("Role changed successfully");
-        setUserDetails((prev) => ({ ...prev, role: newRole }));
+        window.location.reload()
+
       } else {
         toast.error("Failed to change role");
       }
@@ -129,6 +130,13 @@ export const Profile = () => {
               className="bg-white text-black dark:bg-black dark:text-white"
             >
               Author
+            </option>
+
+            <option
+              value="Admin"
+              className="bg-white text-black dark:bg-black dark:text-white"
+            >
+              Admin
             </option>
           </select>
         </div>
