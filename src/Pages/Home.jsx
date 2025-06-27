@@ -36,6 +36,9 @@ const Home = () => {
 
   return (
     <div className="h-[100vh] w-full py-5 px-20 bg-white dark:bg-black dark:text-white flex gap-10">
+      <div className="w-full h-[300px] flex gap-10  justify-center ">
+{console.log("psots",post)}
+      {!loading && SearchedPost.map((post) => {
       {loading && <Loader />}
       <div className="w-full h-[300px] flex gap-10 ">
 
