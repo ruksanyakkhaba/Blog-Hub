@@ -1,3 +1,5 @@
+import { getAdapter } from "axios";
+
 const backendUrl = "http://localhost:3000/api/v1";
 
 const api ={
@@ -56,6 +58,14 @@ const api ={
     getUserPosts:{
         url:`${backendUrl}/post/user-posts`,
         method:"GET"
+    },
+    getAllUser:{
+        url:`${backendUrl}/admin/get-user`,
+        method:"GET"
+    },
+    deleteUser:{
+        url:`${backendUrl}/admin/delete-user/`,
+        method:"DELETE"
     }
 }
 export default api

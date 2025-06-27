@@ -6,20 +6,29 @@ import { ThemeContext } from '../context/themeProvider';
 import { useAuth } from '../context/authProvider';
 import api from '../api/apiProvider';
 import axios from 'axios';
+import Loader from './Loader';
+import { useSearch } from '../context/searchContext';
 
 export const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false); 
-  
+
+  const navigate = useNavigate();
   var {darkMode,toggleDarkMode} = useContext(ThemeContext);
   
   const {auth} = useAuth();
   useEffect(()=>{
     if(auth.status){
+     
       setIsLoggedIn(true)
     }
-  },[auth.status]) 
-  
+  },[auth.status])
+
+   useEffect(()=>{
+    if(auth.status){
+      setRole(auth?.userData?.role)
+    }
+   },[])
    const handleLogOut = async() =>{
      const res =  await axios.get(api.logout.url,{
       withCredentials:true
@@ -34,11 +43,13 @@ export const Navbar = () => {
     setDropdownOpen(!dropdownOpen);
   };
  
-
+if ( auth.userData && role == null ){
+  return <Loader />
+}
    
   return (
     <nav className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-15 py-4 flex items-center justify-between  border-b-2 border-gray-200 dark:border-gray-700">
-    
+    {console.log("role",role)}
       <div className="flex items-center space-x-2">
         <span className="font-semibold text-xl">BlogLogo</span>
       </div>
@@ -46,12 +57,12 @@ export const Navbar = () => {
       <div className="flex space-x-6">
         <Link to="/" className="hover:text-gray-700 dark:hover:text-gray-300">Home</Link>
         <Link to="/posts" className="hover:text-gray-700 dark:hover:text-gray-300">Posts</Link>
-        <Link to="/about" className="hover:text-gray-700 dark:hover:text-gray-300">About</Link>
-        <Link to="/contact" className="hover:text-gray-700 dark:hover:text-gray-300">Contact</Link>
+      
       </div>
       <div className="h-[40px] w-[150px] px-2 rounded-xl flex items-center border-1 transition-all duration-300">
   <input
     type="text"
+    onChange={(e)=>setSearchText(e.target.value)}
     placeholder="Search ....."
     className="w-full h-full text-xl border-none outline-none focus:outline-none"
   />
