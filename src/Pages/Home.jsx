@@ -7,7 +7,7 @@ import api from "../api/apiProvider";
 import { useSearch } from "../context/searchContext";
 const Home = () => {
   const [post,setPost] = useState([])
-  const [loading,setLoading] = useState(false)
+  const [loading,setLoading] = useState(true)
   const {searchText} = useSearch()
   
   useEffect(() => {
