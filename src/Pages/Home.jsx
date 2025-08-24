@@ -6,6 +6,11 @@ import axios from "axios";
 import api from "../api/apiProvider";
 
 const Home = () => {
+  
+  const [post,setPost] = useState([])
+  const [loading,setLoading] = useState(true)
+  const {searchText} = useSearch()
+  
   const [post, setPost] = useState([]);
   const [loading,setLoading] = useState(false)
 

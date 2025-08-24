@@ -70,7 +70,7 @@ const ReadBlog = () => {
 
   
   if (!blogPost) {
-    return <div className="p-6 text-center text-gray-500">Loading post...</div>;
+    return <div className="p-6 text-center text-gray-500 dark:bg-black h-[100vh] w-full">Loading post...</div>;
   }
 
   return (
