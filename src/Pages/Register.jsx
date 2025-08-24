@@ -34,7 +34,7 @@ export const Register = () => {
   }
 
    return(
-    <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-white text-black dark:bg-black dark:text-white">
+    <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-white text-black">
       <ToastContainer />
       {loading ? (
         <Loader />
